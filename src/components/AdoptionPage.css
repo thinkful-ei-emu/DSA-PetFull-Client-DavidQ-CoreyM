@@ -1,0 +1,57 @@
+.main-container {
+  margin: 0px;
+}
+
+.adoption-form {
+  /* border: solid 3px black; */
+  margin: 10px;
+  padding: 20px 0 20px 0;
+}
+
+.adoption-container {
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.dog-container {
+  /* border: solid 1px red; */
+  /* border-radius: 10px; */
+  margin: 10px;
+}
+
+.dog {
+  border: solid 2px red;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.cat-container {
+  /* border: solid 1px green; */
+  /* border-radius: 10px; */
+  margin: 10px;
+}
+
+.cat {
+  border: solid 2px orange;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+}
+
+.user-queue-container {
+  /* border: solid 1px black; */
+  margin: 20px;
+  padding: 50px, 0px
+}

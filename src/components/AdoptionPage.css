@@ -3,9 +3,14 @@
 }
 
 .adoption-form {
-  /* border: solid 3px black; */
+  /* border-bottom: solid 3px black; */
   margin: 10px;
-  padding: 20px 0 20px 0;
+  padding: 40px 0 40px 0;
+}
+
+.welcome-text {
+  margin: 10px;
+  padding: 40px 0 73px 0;
 }
 
 .adoption-container {
@@ -54,4 +59,9 @@ img {
   /* border: solid 1px black; */
   margin: 20px;
   padding: 50px, 0px
+}
+
+.adopted-message {
+  color: blue;
+  font-size: 20px;
 }

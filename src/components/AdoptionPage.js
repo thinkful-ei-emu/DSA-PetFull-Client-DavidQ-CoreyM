@@ -4,6 +4,8 @@ import API from './API';
 import './AdoptionPage.css'
 
 let interval;
+let pos1Interval;
+let timer = 30;
 
 class AdoptionPage extends Component {
 
@@ -11,23 +13,27 @@ class AdoptionPage extends Component {
     user_name : null,
     position : '',
     dog : null,
-    cat : null
+    cat : null,
+    message : ''
   }
 
   componentDidMount() {
     interval = setInterval(() => {
       if (this.state.user_name) {
-        API.callApi(`position?user=${this.state.user_name}`)
+        API.callApi(`users/position?user=${this.state.user_name}`)
         .then(data => {
+          if(data.position === 1) {
+            pos1Interval = setInterval(() => timer--, 1000)
+          }
           this.setState({
             position : data.position
           })
         })
         .catch(error => {
-          
+          console.log(error)
         })
       }
-    }, 15000)
+    }, 10000)
     Promise.all([
       API.callApi('dog'),
       API.callApi('cat')
@@ -36,10 +42,10 @@ class AdoptionPage extends Component {
         dog : data[0],
         cat : data[1]
       })
+    }).catch(error => {
+      console.log(error)
     })
   }
-
-  // endpoint, method='GET', body=null
 
   componentWillUnmount() {
     clearInterval(interval);
@@ -55,44 +61,61 @@ class AdoptionPage extends Component {
       position : data.position
       })
     }).catch(error => {
-      alert(error)
+      console.log(error)
     })
-
-    console.log('testing')
     
   }
 
-  handleDogAdoptSubmit(e) {
+  handleAdoptSubmit = (e, pet) => {
     e.preventDefault();
-    console.log('testing Dog')
-
+    
+    API.callApi('users/adopt', 'POST', {user : this.state.user_name, pet})
+    .then(() => {
+      this.setState({
+        user_name : null,
+        position : null,
+        message : 'You adopted a pet!'
+      })
+        clearInterval(interval);
+      Promise.all([
+        API.callApi('dog'),
+        API.callApi('cat')
+      ]).then(data => {
+        this.setState({
+          dog : data[0],
+          cat : data[1]
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    })
   }
-
-  handleCatAdoptSubmit(e) {
-    e.preventDefault();
-    console.log('testing Cat')
-
-  }
-
   
-
-
-
-
 
   render() {
     return (
       <div className='main-container'>
         <h2>Adoption page</h2>
+
           <div>
+
+          <p>timer: {timer}</p>
+
+          {!this.state.user_name && <form className='adoption-form' onSubmit={this.handleUserSubmit}>
           <h4>User Queue Submission</h4>
-          <form className='adoption-form' onSubmit={this.handleUserSubmit}>
+            <p>Submit your name to enter the Queue</p>
             Name
             <input type='text' name='Name'></input>
             <button>Submit</button>
-          </form>
-          <p>You are in the queue {this.state.user_name}</p>
+          </form>}
+
+          {this.state.user_name && <div className='welcome-text'>
+          <p>Welcome to the Queue: {this.state.user_name}</p>
           <p>Postition in Queue: {this.state.position}</p>
+          </div>}
+
+          {this.state.message && <p className='adopted-message'>{this.state.message}</p>}
+
         </div>
 
         <div className='adoption-container'>
@@ -106,7 +129,7 @@ class AdoptionPage extends Component {
               <p>Age: {this.state.dog && this.state.dog.age}</p>
               <p>Breed: {this.state.dog && this.state.dog.breed}</p>
               <p>Story: {this.state.dog && this.state.dog.story}</p>
-              <button onClick={this.handleDogAdoptSubmit} disabled={this.state.position !== 1}>Adopt</button>
+              <button onClick={(e) => this.handleAdoptSubmit(e,'dog')} disabled={this.state.position !== 1}>Adopt</button>
             </div>
           </div> 
           
@@ -121,7 +144,7 @@ class AdoptionPage extends Component {
               <p>Age: {this.state.cat && this.state.cat.age}</p>
               <p>Breed: {this.state.cat && this.state.cat.breed}</p>
               <p>Story: {this.state.cat && this.state.cat.story}</p>
-              <button onClick={this.handleCatAdoptSubmit} disabled={this.state.position !== 1}>Adopt</button>
+              <button onClick={(e) => this.handleAdoptSubmit(e,'cat')} disabled={this.state.position !== 1}>Adopt</button>
             </div>
           </div>
         </div>

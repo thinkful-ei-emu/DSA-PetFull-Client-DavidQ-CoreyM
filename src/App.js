@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
+import AdoptionPage from './components/AdoptionPage';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      petData: []
+    }
+  }
+
+
+
+  render() {
+    return (
+      <div className="App">
+
+        <header className="App-header">
+          <div>
+            <h1>Petful</h1>
+          </div>
+        </header>
+
+        <main className = 'Main-container'>
+        <Switch>
+          <Route exact path = {'/'} component = {LandingPage}/>
+          <Route path={'/adoption'} 
+            render={(props) => 
+              <AdoptionPage {...props} petData={this.state.petData}/>
+            }
+          />
+        </Switch>
+        </main>
+
+      </div>
+    );
+  }
+
 }
 
 export default App;

@@ -33,7 +33,7 @@ class AdoptionPage extends Component {
           console.log(error)
         })
       }
-    }, 10000)
+    }, 15000)
     Promise.all([
       API.callApi('dog'),
       API.callApi('cat')

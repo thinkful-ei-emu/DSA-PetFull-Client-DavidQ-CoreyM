@@ -5,13 +5,13 @@ import './AdoptionPage.css'
 
 let interval;
 let pos1Interval;
-let timer = 30;
 
 class AdoptionPage extends Component {
 
   state = {
     user_name : null,
     position : '',
+    timer:30,
     dog : null,
     cat : null,
     message : ''
@@ -23,7 +23,14 @@ class AdoptionPage extends Component {
         API.callApi(`users/position?user=${this.state.user_name}`)
         .then(data => {
           if(data.position === 1) {
-            pos1Interval = setInterval(() => timer--, 1000)
+            pos1Interval = setInterval(() =>{ 
+              if(this.state.timer < 1 ){
+                clearInterval(pos1Interval);
+                this.setState({message:'Time has Expired please rejoin queue'})
+              }
+              else
+                this.setState({timer:--this.state.timer})
+            }, 1000);
           }
           this.setState({
             position : data.position
@@ -99,7 +106,7 @@ class AdoptionPage extends Component {
 
           <div>
 
-          <p>timer: {timer}</p>
+          <p>timer: {this.state.timer}</p>
 
           {!this.state.user_name && <form className='adoption-form' onSubmit={this.handleUserSubmit}>
           <h4>User Queue Submission</h4>

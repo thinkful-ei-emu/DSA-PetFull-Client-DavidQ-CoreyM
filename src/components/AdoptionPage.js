@@ -22,22 +22,14 @@ class AdoptionPage extends Component {
       if (this.state.user_name) {
         API.callApi(`users/position?user=${this.state.user_name}`)
         .then(data => {
-          if(data.position === 1) {
-            pos1Interval = setInterval(() =>{ 
-              if(this.state.timer < 1 ){
-                clearInterval(pos1Interval);
-                this.setState({message:'Time has Expired please rejoin queue'})
-              }
-              else
-                this.setState({timer:--this.state.timer})
-            }, 1000);
-          }
           this.setState({
             position : data.position
           })
         })
         .catch(error => {
-          console.log(error)
+          clearInterval(pos1Interval);
+            this.setState({message:'Time has Expired please rejoin queue', position:'', user_name: null, timer:30})
+            console.log(error)
         })
       }
     }, 15000)
@@ -63,6 +55,16 @@ class AdoptionPage extends Component {
     const user_name = e.target['Name'].value
     console.log(user_name)
     API.callApi('users', 'POST', {user : user_name}).then(data => {
+      if(data.position === 1 && pos1Interval !== null) {
+      pos1Interval = setInterval(() =>{ 
+        if(this.state.timer < 1 ){
+          clearInterval(pos1Interval);
+          this.setState({message:'Time has Expired please rejoin queue', position:'', user_name: null, timer:30})
+        }
+        else
+          this.setState({timer: this.state.timer-1})
+      }, 1000);
+    }
       this.setState({
       user_name : user_name,
       position : data.position
@@ -70,12 +72,13 @@ class AdoptionPage extends Component {
     }).catch(error => {
       console.log(error)
     })
-    
+
   }
+
+  
 
   handleAdoptSubmit = (e, pet) => {
     e.preventDefault();
-    
     API.callApi('users/adopt', 'POST', {user : this.state.user_name, pet})
     .then(() => {
       this.setState({

@@ -1,4 +1,4 @@
-live version athttps://petful-client.monorthwest.now.sh
+live version at https://petful-client.monorthwest.now.sh
 ## Available Scripts
 
 In the project directory, you can run:

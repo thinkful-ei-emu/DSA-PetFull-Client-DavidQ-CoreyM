@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from './API';
 //import config from '../config';
+import Preview from './AnimalPreview';
 import './AdoptionPage.css'
 
 let interval;
@@ -12,8 +13,8 @@ class AdoptionPage extends Component {
     user_name : null,
     position : '',
     timer:30,
-    dog : null,
-    cat : null,
+    dog : {name:''},
+    cat : {name:''},
     message : ''
   }
 
@@ -164,7 +165,7 @@ class AdoptionPage extends Component {
             
           </div>
         </div>
-
+      <Preview currentDog={this.state.dog.name} currentCat={this.state.cat.name}/>
       </div>
     )
   }

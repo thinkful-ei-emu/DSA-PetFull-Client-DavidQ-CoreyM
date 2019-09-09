@@ -65,3 +65,22 @@ img {
   color: blue;
   font-size: 20px;
 }
+
+.cat-container-preview{
+  border: 1px solid black;
+  display: inline-flex;
+  padding: 10px;
+  margin: 10px;
+}
+
+.current{
+  border: 10px solid blue;
+  display: inline-flex;
+  padding: 10px;
+  margin: 10px;
+}
+
+#cat-img{
+  width: 100px;
+  height: 100px;
+}

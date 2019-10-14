@@ -3,7 +3,7 @@ live version at https://petful-client.monorthwest.now.sh
  - [client repo](https://github.com/thinkful-ei-emu/DSA-PetFull-Client-DavidQ-CoreyM)
  - [API repo](https://github.com/thinkful-ei-emu/DSA-Petful-DavidQ-CoreyM)
  
-By: [David Queen Jr](www.github.com/dcoollx) & [Corey Moore](www.github.com/monorthwest)
+By: [David Queen Jr](https://www.github.com/dcoollx) & [Corey Moore](https://www.github.com/monorthwest)
 >This App is A FIFO adoption App, that matched dogs and/or cat to new owners
 **TECH STACK:**
  - REACTJS

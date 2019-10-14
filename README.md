@@ -1,8 +1,19 @@
+# Petful
 live version at https://petful-client.monorthwest.now.sh
-## Available Scripts
+ - [client repo](https://github.com/thinkful-ei-emu/DSA-PetFull-Client-DavidQ-CoreyM)
+ - [API repo](https://github.com/thinkful-ei-emu/DSA-Petful-DavidQ-CoreyM)
+ 
+By: [David Queen Jr](www.github.com/dcoollx) & [Corey Moore](www.github.com/monorthwest)
+>This App is A FIFO adoption App, that matched dogs and/or cat to new owners
+**TECH STACK:**
+ - REACTJS
+ - Jest
+ - [dogApi](https://dog.ceo/dog-api)
 
+
+
+## Development
 In the project directory, you can run:
-
 ### `npm start`
 
 Runs the app in the development mode.<br>
